@@ -4,7 +4,7 @@
 motion magnetic motor which I haven't (yet) tried
 to build.
 
-[vgate-disco.png](pic/vgate-disco.png)
+![vgate-disco.png](pic/vgate-disco.png)
 
 Regarding the energy conservation law, it should not
 work. Apart from that, I don't see why shouldn't it work.
