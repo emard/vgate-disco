@@ -1,7 +1,7 @@
 
-module magnet(r=10,h=10,fn=32)
+module magnet(d=10,h=10,fn=32)
 {
-  magnet_d=r;
+  magnet_d=d;
   magnet_h=h;
   cylinder_faces=fn;
   color([0.5,0.5,1]) // blue, north
