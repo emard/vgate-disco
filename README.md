@@ -6,17 +6,13 @@ to build.
 
 [vgate-disco.png](pic/vgate-disco.png)
 
-Apart from energy conservation law, I don't see why 
-shouldn't it work. Also I can't prove that it will work. 
-
-Building this machine is not expensive so it might be good
-as educational project to see what happens.
+Regarding the energy conservation law, it should not
+work. Apart from that, I don't see why shouldn't it work.
 
 It is supposed to create rotating endless V-gate
-structure which will create constant force to a nearby
-magnet, hopfully counter-balanced with constant torque
-to the discs.
+structure which creates force to a stator
+magnet, hopfully counter-balanced with torque
+on the rotor discs.
 
-From aspect of energy conservation law, something like this
-should not work.
-
+Building this machine is not expensive as simple
+educational project to see what happens.
