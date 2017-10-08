@@ -28,8 +28,8 @@ out_d_h=d_magnet+2*thick;
 
 // pastic inner ring dimension (holds bearing to the outer ring)
 in_out_d_clr=0.7; // inner-to-outer ring clearance
-in_bearing_d_clr=0.7;
-in_bearing_h_clr=0.7;
+in_bearing_d_clr=0.3;
+in_bearing_h_clr=0.0;
 in_d_out=out_d_in+2*thick; // inner dia
 in_d_in=bearing_d_out+in_bearing_d_clr;
 in_h=out_d_h+2*thick;
@@ -165,12 +165,17 @@ module inner_plastic_ring(d_out=60, d_in=30,h=20,in_half_clr=0.5,bulk=3,prongs=4
   }
 }
 
+module threaded_rod()
+{
+  rotate([0,90,0])
+    cylinder(d=3,h=ring_distance+3*out_d_h,$fn=6,center=true);
+}
 
 
 module assembly(rotor_magnets=1,bearing=1,disc_out=1,disc_in=1,stator_magnets=1,bearing_grip=1)
 {
 
-  // rotor
+  // rotors: sign for left/right
   for(sign=[-1:2:1])
   {
     translate([sign*ring_distance/2,0,0])
@@ -193,17 +198,24 @@ module assembly(rotor_magnets=1,bearing=1,disc_out=1,disc_in=1,stator_magnets=1,
           
           if(bearing_grip > 0.5)
           {
-            translate([0,0,-bearing_h/2])
-              rod_bearing_grip();
-            translate([0,0,bearing_h/2])
-              rotate([180,0,0])
-              rod_bearing_grip();
+            //translate([0,0,-bearing_h/2])
+              if(1)
+              rotate([0,90-90*sign,90+90*sign])
+              rod_bearing_grip(angle_rod=tilt);
+            //translate([0,0,bearing_h/2])
+              if(1)
+              rotate([0,90+90*sign,90+90*sign])
+              rod_bearing_grip(angle_rod=tilt);
           }
           
           if(disc_in > 0.5)
             inner_plastic_ring(d_out=in_d_out,d_in=in_d_in,h=in_h,d_trench=out_d_in-in_out_d_clr,h_trench=out_d_h);
         }
     }
+
+    // the rod
+    if(threaded_rod > 0.5)
+        %threaded_rod();
 
     // stator magnets
     if(stator_magnets > 0.5)
@@ -214,7 +226,7 @@ module assembly(rotor_magnets=1,bearing=1,disc_out=1,disc_in=1,stator_magnets=1,
 }
 
 if(1)
-assembly(disc_out=1,disc_in=1,bearing=1,bearing_grip=1);
+assembly(disc_out=0,disc_in=0,bearing=1,bearing_grip=1,threaded_rod=1);
 
 // outer ring
 if(0)

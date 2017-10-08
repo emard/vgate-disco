@@ -9,7 +9,7 @@ module bearing(d_out=22,d_in=8,h=7)
 
 
 module
-rod_bearing_grip(d_rod=3,d_bearing=8,h_bearing=7,clr_d_bearing=0.4,clr_h_bearing=0.4,clr_d_rod=0.4,over=1.5,fn=32)
+rod_bearing_grip(d_rod=3,angle_rod=0,d_bearing=8,h_bearing=7,clr_d_bearing=0.4,clr_h_bearing=0.4,clr_d_rod=0.4,over=1.5,fn=32)
 {
   d1_kuglager=d_bearing;
   h_kuglager=h_bearing;
@@ -20,6 +20,7 @@ rod_bearing_grip(d_rod=3,d_bearing=8,h_bearing=7,clr_d_bearing=0.4,clr_h_bearing
 
   difference()
   {
+    translate([0,0,-h_bearing/2])
     union()
     {
       // fits inside of kuglager
@@ -33,7 +34,8 @@ cylinder(d=d1_kuglager-spacer_outer_clearance,h=h_kuglager/3+spacer_rim_h,$fn=32
         cylinder(d=d1_kuglager+2*clearance,h=spacer_rim_h,$fn=32,center=true);
     }
     // hole for the rod
-    cylinder(d=d_rod+spacer_inner_clearance,h=h_kuglager/3+spacer_rim_h+0.01,$fn=32,center=true);
+    rotate([0,angle_rod,0])
+      cylinder(d=d_rod+spacer_inner_clearance,h=h_kuglager*3,$fn=32,center=true);
     // half-cut of clearance
     // cylinder(d=d1_kuglager,h=clearance,$fn=32,center=true); 
   }
