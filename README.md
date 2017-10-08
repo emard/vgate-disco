@@ -4,6 +4,8 @@
 motion magnetic motor which I haven't (yet) tried
 to build.
 
+[vgate-disco.png](pic/vgate-disco.png)
+
 Apart from energy conservation law, I don't see why 
 shouldn't it work. Also I can't prove that it will work. 
 
@@ -17,3 +19,4 @@ to the discs.
 
 From aspect of energy conservation law, something like this
 should not work.
+
