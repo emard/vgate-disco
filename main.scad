@@ -205,7 +205,7 @@ module assembly(rotor_magnets=1,bearing=1,disc_out=1,disc_in=1,stator_magnets=1,
             //translate([0,0,bearing_h/2])
               if(1)
               rotate([0,90+90*sign,90+90*sign])
-              rod_bearing_grip(angle_rod=tilt);
+              rod_bearing_grip(angle_rod=tilt,upper=1,lower=1);
           }
           
           if(disc_in > 0.5)
@@ -225,7 +225,7 @@ module assembly(rotor_magnets=1,bearing=1,disc_out=1,disc_in=1,stator_magnets=1,
             %magnet(d=d_magnet,h=ring_distance+magnet_over);
 }
 
-if(1)
+if(0)
 assembly(disc_out=0,disc_in=0,bearing=1,bearing_grip=1,threaded_rod=1);
 
 // outer ring
@@ -246,9 +246,15 @@ if(0)
           }
 
 // bearing grips
-if(0)
-  for(i=[-2:2])
-   translate([20*i,0,0])
-      rod_bearing_grip();
-  
-        
+if(1)
+  for(i=[-1:2:1])
+  {
+   grid=10;
+   translate([grid*i,grid,0])
+      rotate([0,-tilt,0])
+      rod_bearing_grip(angle_rod=tilt,upper=0);
+   translate([grid*i,-grid,0])
+      rotate([0,180-tilt,0])
+      rod_bearing_grip(angle_rod=tilt,lower=0);
+
+  }
