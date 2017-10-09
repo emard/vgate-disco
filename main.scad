@@ -199,7 +199,7 @@ module assembly(rotor_magnets=1,bearing=1,disc_out=1,disc_in=1,stator_magnets=1,
           if(bearing_grip > 0.5)
           {
             //translate([0,0,-bearing_h/2])
-              if(1)
+              if(0)
               rotate([0,90-90*sign,90+90*sign])
               rod_bearing_grip(angle_rod=tilt);
             //translate([0,0,bearing_h/2])
