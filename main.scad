@@ -191,7 +191,7 @@ module assembly(rotor_magnets=1,bearing=1,disc_out=1,disc_in=1,stator_magnets=1,
           // trying to increase ring diameter
 
           if(disc_out > 0.5)
-            outer_plastic_ring(d_out=out_d_out,d_in=out_d_in,h=out_d_h);
+            %outer_plastic_ring(d_out=out_d_out,d_in=out_d_in,h=out_d_h);
 
           if(bearing > 0.5)
             %bearing();
@@ -225,8 +225,8 @@ module assembly(rotor_magnets=1,bearing=1,disc_out=1,disc_in=1,stator_magnets=1,
             %magnet(d=d_magnet,h=ring_distance+magnet_over);
 }
 
-if(0)
-assembly(disc_out=0,disc_in=0,bearing=1,bearing_grip=1,threaded_rod=1);
+if(1)
+assembly(disc_out=1,disc_in=1,bearing=1,bearing_grip=1,threaded_rod=1);
 
 // outer ring
 if(0)
@@ -246,7 +246,7 @@ if(0)
           }
 
 // bearing grips
-if(1)
+if(0)
   for(i=[-1:2:1])
   {
    grid=10;
