@@ -197,7 +197,8 @@ module print_inner_ring()
       rotate([90-i*90,0,0])
         difference()
         {
-          inner_plastic_ring(d_out=in_d_out,d_in=in_d_in,h=in_h,d_trench=out_d_in-in_out_d_clr,h_trench=out_d_h);
+
+inner_plastic_ring(d_out=in_d_out,d_in=in_d_in,h=in_h,d_trench=out_d_in-in_out_d_clr,h_trench=out_d_h,fn=n_magnets*8);
             translate([0,0,i*50])
               cube([100,100,100],center=true);
         }
