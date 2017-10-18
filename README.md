@@ -6,13 +6,9 @@ to build.
 
 ![vgate-disco.png](pic/vgate-disco.png)
 
-Regarding the energy conservation law, it should not
-work. Apart from that, I don't see why shouldn't it work.
+It was assembled with 32 magnets per disc.
+Dimension of each magnet is D=6mm and H=10mm.
+Discs didn't rotate by themself when external magnet
+is approaced. Torque was transferred to the axle and
+not to the discs.
 
-It is supposed to create rotating endless V-gate
-structure which creates force to a stator
-magnet, hopfully counter-balanced with torque
-on the rotor discs.
-
-Building this machine is not expensive as simple
-educational project to see what happens.
