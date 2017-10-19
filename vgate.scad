@@ -1,47 +1,3 @@
-// to see animation:
-// view->animate, FPS=11, Steps=22
-// assembly(disc_out=0,disc_in=0,bearing=0);
-
-thick=1.5; // mm general thickness
-
-tilt=15; // ring tilt
-ring_distance=50; // mm from center
-d_magnet=10;
-h_magnet=5;
-n_magnets=16;
-magnet_d_clr=1; // clearance in d
-magnet_h_clr=0.5; // clearance in h
-d_ring=70;
-magnet_distance=16;
-magnet_over=ring_distance*0.3;
-polarity=-1;
-
-// bearing
-bearing_d_out=22;
-bearing_d_in=8;
-bearing_h=7;
-
-// plastic outer ring dimension
-out_d_out=d_ring+h_magnet+2*thick;
-out_d_in=d_ring-h_magnet;
-out_d_h=d_magnet+2*thick;
-
-// pastic inner ring dimension (holds bearing to the outer ring)
-in_out_d_clr=0.7; // inner-to-outer ring clearance
-in_bearing_d_clr=0.3;
-in_bearing_h_clr=0.0;
-in_d_out=out_d_in+2*thick; // inner dia
-in_d_in=bearing_d_out+in_bearing_d_clr;
-in_h=out_d_h+2*thick;
-
-// screw
-l_screw=6; // thread length
-d_screw=2.2; // thread dia
-d_screw_head=5; // screw head dia
-h_screw_transition=d_screw; // easy 3dprint
-
-include <magnet.scad>
-include <bearing.scad>
 
 module ring_of_magnets(d=70,n=12,dm=6,hm=10,rot=90)
 {
@@ -172,7 +128,7 @@ module threaded_rod()
 }
 
 
-module assembly(rotor_magnets=1,bearing=1,disc_out=1,disc_in=1,stator_magnets=1,bearing_grip=1)
+module view_assembly(rotor_magnets=1,bearing=1,disc_out=1,disc_in=1,stator_magnets=1,bearing_grip=1)
 {
 
   // rotors: sign for left/right
@@ -191,7 +147,7 @@ module assembly(rotor_magnets=1,bearing=1,disc_out=1,disc_in=1,stator_magnets=1,
           // trying to increase ring diameter
 
           if(disc_out > 0.5)
-            outer_plastic_ring(d_out=out_d_out,d_in=out_d_in,h=out_d_h);
+            %outer_plastic_ring(d_out=out_d_out,d_in=out_d_in,h=out_d_h);
 
           if(bearing > 0.5)
             %bearing();
@@ -199,13 +155,13 @@ module assembly(rotor_magnets=1,bearing=1,disc_out=1,disc_in=1,stator_magnets=1,
           if(bearing_grip > 0.5)
           {
             //translate([0,0,-bearing_h/2])
-              if(1)
+              if(0)
               rotate([0,90-90*sign,90+90*sign])
               rod_bearing_grip(angle_rod=tilt);
             //translate([0,0,bearing_h/2])
               if(1)
               rotate([0,90+90*sign,90+90*sign])
-              rod_bearing_grip(angle_rod=tilt);
+              rod_bearing_grip(angle_rod=tilt,upper=1,lower=1);
           }
           
           if(disc_in > 0.5)
@@ -225,30 +181,41 @@ module assembly(rotor_magnets=1,bearing=1,disc_out=1,disc_in=1,stator_magnets=1,
             %magnet(d=d_magnet,h=ring_distance+magnet_over);
 }
 
-if(1)
-assembly(disc_out=0,disc_in=0,bearing=1,bearing_grip=1,threaded_rod=1);
-
-// outer ring
-if(0)
+module print_outer_ring()
+{
   difference()
   {
-    outer_plastic_ring(d_out=out_d_out,d_in=out_d_in,h=out_d_h);
+    outer_plastic_ring(d_out=out_d_out,d_in=out_d_in,h=out_d_h,fn=n_magnets*8);
   }
+}
 
-// inner ring
-if(0)
-            difference()
-          {
-            inner_plastic_ring(d_out=in_d_out,d_in=in_d_in,h=in_h,d_trench=out_d_in-in_out_d_clr,h_trench=out_d_h);
-              if(1)
-              translate([0,0,-50])
+module print_inner_ring()
+{
+  for(i=[-1:2:1])
+  {
+    translate([(in_d_out/2+10)*i,0,0])
+      rotate([90-i*90,0,0])
+        difference()
+        {
+
+inner_plastic_ring(d_out=in_d_out,d_in=in_d_in,h=in_h,d_trench=out_d_in-in_out_d_clr,h_trench=out_d_h,fn=n_magnets*8);
+            translate([0,0,i*50])
               cube([100,100,100],center=true);
-          }
+        }
+  }
+}
 
-// bearing grips
-if(0)
-  for(i=[-2:2])
-   translate([20*i,0,0])
-      rod_bearing_grip();
-  
-        
+module print_bearing_grips()
+{
+  for(i=[-1:2:1])
+  {
+   grid=10;
+   translate([grid*i,grid,0])
+      rotate([0,-tilt,0])
+      rod_bearing_grip(angle_rod=tilt,upper=0);
+   translate([grid*i,-grid,0])
+      rotate([0,180-tilt,0])
+      rod_bearing_grip(angle_rod=tilt,lower=0);
+
+  }
+}
